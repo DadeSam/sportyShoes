@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="ISO-8859-1">
+<title>sportyshoes.com</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+</head>
+<body>
+<nav class="navbar navbar-expand-sm bg-dark navbar-dark">
+   <a class="navbar-brand" th:href="@{/AddProduct}">sportyshoes.com</a>
+  	<a class="navbar-brand" th:href="@{/index}">Logout</a>
+</nav>
+<br><br>
+	<div class ="container">
+			<div class = "row justify-content-center">        
+			<div class="card" style="width: 50%;">
+            <h2 class="card-header text-center">Update Product</h2>
+			<div class = "card-body">
+			<form th:action="@{/ViewProduct/{product_id}(product_id=${product.product_id})}" th:object="${product}" method="POST">
+				<div class="form-group">	
+					<label>Product Name</label>
+					<input type = "text" name= "product_name" th:field = "*{productName}" class= "form-control" placeholder="product name"/>
+				</div>
+				<div class="form-group">
+					<label>Description</label>
+					<input type = "text" name= "description" th:field = "*{description}" class= "form-control" placeholder="description"/>
+				</div>
+				<div class="form-group">
+				    <label for="category">Category</label>
+				    <select id="category" name="category" class="form-control">
+				        <option th:each="category : ${categories}" th:value="${category.category_id}" th:text="${category.categoryName}" th:selected="${category.category_id == product.category.category_id}"></option>
+				    </select>
+				</div>
+				<div class="form-group">	
+					<label>Price</label>
+					<input type = "text" name= "price" th:field = "*{price}" class= "form-control" placeholder="price"/>					
+				</div>
+				<div class="footer-body">
+					<button type = "submit" class = "btn btn-primary">Submit</button>
+				</div>
+			</form>
+			</div>
+			</div>
+			</div>
+	</div>
+</body>
+</html>

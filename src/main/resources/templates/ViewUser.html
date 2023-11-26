@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="ISO-8859-1">
+<title>sportyshoes.com</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+</head>
+<body>
+<nav class="navbar navbar-expand-sm bg-dark navbar-dark">
+   <a class="navbar-brand" th:href="@{/AdminDashboard}">sportyshoes.com</a>
+  	<a class="navbar-brand" th:href="@{/index}">Logout</a>
+  	<form th:action="@{/ViewUser/search}">
+	  	<div class="input-group rounded">
+		  <input type="search" class="form-control rounded" placeholder="Enter Username" aria-label="Search" aria-describedby="search-addon" name = "username"/>
+			<button type="submit" class="rounded">Search</button>
+		</div>
+	</form>
+</nav>
+<br><br>
+	<div class = "container" th:if="${searchResult}">
+	    <div class = "row text-center" >
+			<h2>View Users</h2>
+		</div>
+		<table class = "table table-striped table-bordered">
+			<thead class = "dark">
+				<tr>
+					<th>Username</th>
+					<th>Email Address</th>
+					<th>Location</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td th:text ="${searchResult.username}"></td>
+					<td th:text ="${searchResult.email_address}"></td>
+					<td th:text ="${searchResult.location}"></td>
+				</tr>
+			</tbody>					
+		</table>
+	 <div class="text-center">
+        <a href="/ViewUser" class="btn btn-primary">View All Users</a>
+    </div>
+	</div>
+	<!-- Display all user if search result is null -->
+	<div class = "container" th:unless="${searchResult}">
+		<div class = ""><h1>View Users</h1></div>
+		
+		<table class = "table table-striped table-bordered">
+			<thead class = "dark">
+				<tr>
+					<th>Username</th>
+					<th>Email Address</th>
+					<th>Location</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:each="user: ${users}">
+					<td th:text ="${user.username}"></td>
+					<td th:text ="${user.email_address}"></td>
+					<td th:text ="${user.location}"></td>
+				</tr>
+			</tbody>					
+		</table>
+	</div>
+</body>
+</html>
